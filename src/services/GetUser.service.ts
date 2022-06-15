@@ -8,19 +8,15 @@ interface IRequest {
   id: string;
 }
 
-class DeleteUser {
+class GetUserService {
   public async execute({ id }: IRequest): Promise<User> {
-    const usersRepository = getCustomRepository(UserRepository);
-    const user = await usersRepository.findOne(id);
+    const userRepository = getCustomRepository(UserRepository);
+    const user = await userRepository.findOne(id);
 
     if (!user) {
-      throw new ApiError(404, true, 'User not found');
+      throw new ApiError(400, false, 'User not found');
     }
-
-    await usersRepository.remove(user);
-
     return user;
   }
 }
-
-export default DeleteUser;
+export default GetUserService;

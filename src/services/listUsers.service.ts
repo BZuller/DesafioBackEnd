@@ -6,7 +6,6 @@ import UserRepository from '../database/repositories/UserRepository';
 class ListUsersService {
   public async execute(): Promise<User[]> {
     const usersRepository = getCustomRepository(UserRepository);
-
     const userList = await usersRepository.find();
     return userList;
   }

@@ -30,6 +30,19 @@ export class UserRepository extends Repository<User> {
     });
     return user;
   }
+
+  public async findByRole(
+    admin: boolean,
+    cpf: string
+  ): Promise<User | undefined> {
+    const user = await this.findOne({
+      where: {
+        admin,
+        cpf,
+      },
+    });
+    return user;
+  }
 }
 
 export default UserRepository;

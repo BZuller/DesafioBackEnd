@@ -9,7 +9,6 @@ import logger from './config/logger';
 import database from './config/database';
 import routes from './routes';
 import swaggerDocs from './config/swagger';
-import deserializeUser from './middlewares/deserializeUser';
 
 const app = express();
 
@@ -18,7 +17,6 @@ app.use(helmet());
 app.use(compression());
 app.use(cors());
 app.options('*', cors());
-app.use(deserializeUser);
 
 if (config.env !== environments.PRODUCTION) {
   app.use(morgan('tiny'));

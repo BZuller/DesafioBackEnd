@@ -21,7 +21,13 @@ class User {
   cpf: string;
 
   @Column()
-  birthdate: string;
+  observations: string;
+
+  @Column()
+  birthdate: Date;
+
+  @Column()
+  admin: boolean;
 
   @CreateDateColumn()
   created_at: Date;

@@ -8,11 +8,21 @@ import UserRepository from '../database/repositories/UserRepository';
 interface IRequest {
   name: string;
   password: string;
+  observations: string;
+  birthdate: Date;
   cpf: string;
+  admin: boolean;
 }
 
 class CreateUserService {
-  public async execute({ name, password, cpf }: IRequest): Promise<User> {
+  public async execute({
+    name,
+    password,
+    observations,
+    birthdate,
+    cpf,
+    admin,
+  }: IRequest): Promise<User> {
     const usersRepository = getCustomRepository(UserRepository);
     const cpfExists = await usersRepository.findByCpf(cpf);
 
@@ -24,7 +34,10 @@ class CreateUserService {
     const user = usersRepository.create({
       name,
       cpf,
+      observations,
+      birthdate,
       password: hashedPassword,
+      admin,
     });
 
     await usersRepository.save(user);

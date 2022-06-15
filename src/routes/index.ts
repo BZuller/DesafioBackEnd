@@ -1,5 +1,7 @@
 import { Express, Request, Response } from 'express';
-import productRoutes from './v1/product.routes';
+import usersRouter from './v1/users.routes';
+import 'express-async-errors';
+import sessionRouter from './v1/sessions.routes';
 
 function routes(app: Express) {
   /**
@@ -17,7 +19,8 @@ function routes(app: Express) {
     res.sendStatus(200)
   );
 
-  app.use('/api/v1/products', productRoutes);
+  app.use('/user', usersRouter);
+  app.use('/session', sessionRouter);
 }
 
 export default routes;

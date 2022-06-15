@@ -26,8 +26,16 @@ export class Users1654534435122 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'observations',
+            type: 'varchar',
+          },
+          {
             name: 'birthdate',
             type: 'date',
+          },
+          {
+            name: 'admin',
+            type: 'boolean',
           },
           {
             name: 'created_at',
