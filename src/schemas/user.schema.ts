@@ -22,7 +22,7 @@ import { object, string, InferType, boolean } from 'yup';
  *           type: string
  */
 
-const criacao = {
+const create = {
   body: object({
     name: string().defined('A name is required'),
     password: string().defined('Password is required'),
@@ -50,7 +50,8 @@ const params = {
 };
 
 export const createUserSchema = object({
-  ...criacao,
+  ...create,
+  ...params,
 });
 
 export const updateUserSchema = object({

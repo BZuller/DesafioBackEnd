@@ -1,8 +1,9 @@
-import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import UsersController from '../../controllers/UserController';
 import isAdmin from '../../middlewares/adminAuth';
 import isAuth from '../../middlewares/isAuth';
+import validate from '../../middlewares/validateResource';
+import { createUserSchema, deleteUserSchema } from '../../schemas/user.schema';
 
 const usersRouter = Router();
 const usersController = new UsersController();
@@ -22,8 +23,6 @@ const usersController = new UsersController();
  *         description: Success
  *         content:
  *          application/json:
- *           schema:
- *              $ref: '#/components/schemas/getUsers'
  *       401:
  *         description: Invalid JWT Token
  *         content:
@@ -52,14 +51,10 @@ const usersController = new UsersController();
  *         description: Invalid JWT Token
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/error/InvalidJWT'
  *       409:
  *         description: Cpf already exists
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/error/CpfDuplicated'
  * '/api/v1/users/{userId}':
  *  put:
  *     tags:
@@ -70,13 +65,9 @@ const usersController = new UsersController();
  *        in: path
  *        description: The user's id
  *        required: true
- *     security:
- *      - bearerAuth: []
  *     requestBody:
  *       content:
  *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/editUser'
  *     responses:
  *       200:
  *         description: Success
@@ -94,8 +85,6 @@ const usersController = new UsersController();
  *         description: Invalid JWT Token
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/error/InvalidJWT'
  *  delete:
  *     tags:
  *     - Users
@@ -118,51 +107,25 @@ const usersController = new UsersController();
  *         description: Invalid JWT Token
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/error/InvalidJWT'
  */
 
 usersRouter.get('/', isAuth, usersController.index);
 
 usersRouter.get('/:id', usersController.find);
 
-usersRouter.post(
-  '/',
-  celebrate({
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-      cpf: Joi.string().required(),
-      observations: Joi.string(),
-      birthdate: Joi.date().required(),
-      password: Joi.string().required(),
-      admin: Joi.boolean().required(),
-    },
-  }),
-  usersController.create
-);
+usersRouter.post('/', [validate(createUserSchema)], usersController.create);
 
 usersRouter.delete(
   '/:id',
   isAdmin,
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
-    },
-  }),
+  [validate(deleteUserSchema)],
   usersController.delete
 );
 
 usersRouter.put(
   '/:id',
   isAdmin,
-  celebrate({
-    [Segments.BODY]: {
-      observations: Joi.string().required(),
-    },
-    [Segments.PARAMS]: {
-      id: Joi.string().required(),
-    },
-  }),
+  [validate(deleteUserSchema)],
   usersController.update
 );
 

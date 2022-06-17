@@ -2,7 +2,7 @@
   "name": "desafio-back",
   "version": "1.0.0",
   "description": "Quickstart NodeJs API com Typescript",
-  "projectPrefix": "quickstart",
+  "projectPrefix": "desafio",
   "main": "index.js",
   "engines": {
     "npm": ">=6.0.0",
