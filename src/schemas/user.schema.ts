@@ -26,7 +26,7 @@ const create = {
   body: object({
     name: string().defined('A name is required'),
     password: string().defined('Password is required'),
-    cpf: string().defined('CPF is required').length(11, 'Must be a valid cpf'),
+    cpf: string().defined('CPF is required'),
     observations: string().max(
       500,
       'Observations must be less than 500 characters'
@@ -46,12 +46,11 @@ const update = {
 };
 
 const params = {
-  params: object({ userId: string().defined('productId is required') }),
+  params: object({ id: string().defined('Id is required') }),
 };
 
 export const createUserSchema = object({
   ...create,
-  ...params,
 });
 
 export const updateUserSchema = object({

@@ -12,7 +12,8 @@ class GetUserService {
   public async execute({ id }: IRequest): Promise<User> {
     const userRepository = getCustomRepository(UserRepository);
     const user = await userRepository.findOne(id);
-
+    // eslint-disable-next-line no-console
+    console.log(user, id);
     if (!user) {
       throw new ApiError(400, false, 'User not found');
     }

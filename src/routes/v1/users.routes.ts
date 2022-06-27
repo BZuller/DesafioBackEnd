@@ -3,7 +3,11 @@ import UsersController from '../../controllers/UserController';
 import isAdmin from '../../middlewares/adminAuth';
 import isAuth from '../../middlewares/isAuth';
 import validate from '../../middlewares/validateResource';
-import { createUserSchema, deleteUserSchema } from '../../schemas/user.schema';
+import {
+  createUserSchema,
+  deleteUserSchema,
+  updateUserSchema,
+} from '../../schemas/user.schema';
 
 const usersRouter = Router();
 const usersController = new UsersController();
@@ -113,19 +117,24 @@ usersRouter.get('/', isAuth, usersController.index);
 
 usersRouter.get('/:id', usersController.find);
 
-usersRouter.post('/', [validate(createUserSchema)], usersController.create);
+usersRouter.post(
+  '/',
+  isAdmin,
+  validate(createUserSchema),
+  usersController.create
+);
 
 usersRouter.delete(
   '/:id',
   isAdmin,
-  [validate(deleteUserSchema)],
+  validate(deleteUserSchema),
   usersController.delete
 );
 
 usersRouter.put(
   '/:id',
   isAdmin,
-  [validate(deleteUserSchema)],
+  validate(updateUserSchema),
   usersController.update
 );
 

@@ -15,7 +15,7 @@ export default class UsersController {
   }
 
   public async find(request: Request, response: Response): Promise<Response> {
-    const { id } = request.body;
+    const { id } = request.params;
 
     const findUser = new GetUserService();
 
@@ -53,12 +53,14 @@ export default class UsersController {
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const { observations } = request.body;
+    const { admin } = request.body;
 
     const updateUser = new UpdateUserService();
 
     const user = await updateUser.execute({
       id,
       observations,
+      admin,
     });
 
     return response.json(user);

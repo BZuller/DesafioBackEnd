@@ -33,8 +33,8 @@ export default function isAdmin(
     if (request.user.admin === true) {
       return next();
     }
-    throw new ApiError(402, true, 'User is not admin2.');
+    throw new ApiError(401, true, 'User is not admin2.');
   } catch {
-    throw new ApiError(402, true, 'User is not admin.');
+    throw new ApiError(401, true, 'User is not admin.');
   }
 }
