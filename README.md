@@ -20,6 +20,12 @@ Mais informações: [site oficial](https://nodejs.org/en/).
 
 ### :fire: Iniciando o projeto
 
+Clone esse repositório utilizando o comando abaixo no seu terminal:
+
+`$ git clone https://github.com/BZuller/DesafioBackEnd.git`
+
+Após o processo ser concluído no próprio terminal aberto localize a pasta que você acabou de clonar e dentro dela digite:
+
 `$ npm install`
 
 Quando concluir a instalação das dependências, abra o projeto no seu editor, crie um arquivo `.env` com as mesmas informações do `.env.example` e peça as infomações com alguém da sua equipe para popular as variáveis.
